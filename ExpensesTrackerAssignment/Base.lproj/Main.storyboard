@@ -56,10 +56,14 @@
                         <subviews>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderExpenseImage" translatesAutoresizingMaskIntoConstraints="NO" id="aQT-Rq-f2O">
                                 <rect key="frame" x="82" y="107.99999999999999" width="250" height="187.66666666666663"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="aQT-Rq-f2O" secondAttribute="height" multiplier="4:3" id="8zg-BM-078"/>
                                     <constraint firstAttribute="width" constant="250" id="m3I-GW-29L"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Td4-Tl-MmD" appends="YES" id="JFT-jv-C2U"/>
+                                </connections>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RdT-MY-H48">
                                 <rect key="frame" x="20" y="305.66666666666669" width="374" height="30"/>
@@ -232,8 +236,19 @@
                             <constraint firstItem="8fH-XR-xfN" firstAttribute="top" secondItem="SdD-og-HWD" secondAttribute="bottom" constant="20" id="y8Z-4j-Ayi"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="DKu-3E-zK6"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="DKu-3E-zK6">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="XIR-bv-Jly">
+                            <connections>
+                                <segue destination="ZHg-m8-A4s" kind="show" identifier="EditExpense" id="byH-Mh-J58"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="expenseDateAddedUIView" destination="SdD-og-HWD" id="9wp-K9-VaF"/>
+                        <outlet property="expenseDescriptionUIView" destination="Eq2-Ol-8jE" id="sgU-9e-Jy6"/>
+                        <outlet property="expensePaidDateUIView" destination="8fH-XR-xfN" id="hv4-bQ-roV"/>
+                        <outlet property="expenseReceiptDateUIView" destination="4E0-qW-6F6" id="bof-85-slu"/>
+                        <outlet property="expenseTotalAmountUIView" destination="2uV-dM-lOf" id="Nnb-IV-ZAx"/>
                         <outlet property="expenseViewDateAddedLabel" destination="Qqa-o4-gXA" id="Bxb-0W-Yza"/>
                         <outlet property="expenseViewDescriptionLabel" destination="Fd5-A6-U3d" id="oYN-wa-y1s"/>
                         <outlet property="expenseViewNameLabel" destination="RdT-MY-H48" id="nlH-IW-GlS"/>
@@ -244,6 +259,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hq-tW-83H" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Td4-Tl-MmD">
+                    <connections>
+                        <action selector="expandExpenseViewUIImage:" destination="ywF-bG-eb2" id="hDN-PM-LnX"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1935" y="-652"/>
         </scene>
@@ -526,6 +546,9 @@
             <point key="canvasLocation" x="1936" y="421"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="byH-Mh-J58"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="placeholderExpenseImage" width="410" height="421"/>
         <systemColor name="linkColor">

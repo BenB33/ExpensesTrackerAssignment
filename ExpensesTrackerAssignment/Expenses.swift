@@ -31,12 +31,22 @@ class Expenses: NSObject, NSCoding
         self.expenseName = expenseName
         self.expenseDescription = expenseDescription
         self.expenseReceiptDate = expenseReceiptDate
-        self.expenseTotalAmount = expenseTotalAmount
         self.isExpensePaid = false
         self.isExpenseVATIncluded = isExpenseVATIncluded
         self.expenseAddedDate = Date.now.formatted(.dateTime)
         self.expensePaidDate = "Unpaid"
         self.expenseImage = expenseImage
+        
+        // Handling the possibility of VAT being included
+        if(isExpenseVATIncluded == true)
+        {
+            let totalAmountIncludingVAT = expenseTotalAmount + (expenseTotalAmount * 0.2)
+            self.expenseTotalAmount = totalAmountIncludingVAT
+        }
+        else
+        {
+            self.expenseTotalAmount = expenseTotalAmount
+        }
     }
     
     // Save the expense data to the phone storage

@@ -128,7 +128,22 @@ class ExpensesTableViewController: UITableViewController
             break
             
         case "EditExpense":
+            guard let expenseViewController = segue.destination as? ExpenseViewController
+            else
+            {
+                print("[ERROR] Unable to obtain ExpenseViewController")
+                break
+            }
             
+            guard let indexPath = tableView.indexPathForSelectedRow
+            else
+            {
+                print("[ERROR] Unable to obtain index path")
+                break
+            }
+            
+            let selectedExpense = expensesArray[indexPath.row]
+            expenseViewController.expense = selectedExpense
             break
             
         default:

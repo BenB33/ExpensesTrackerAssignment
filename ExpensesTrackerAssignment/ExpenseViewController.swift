@@ -38,6 +38,40 @@ class ExpenseViewController: UIViewController, UIImagePickerControllerDelegate &
     @IBOutlet weak var expenseViewDateAddedLabel: UILabel!
     @IBOutlet weak var expenseViewPaidDateLabel: UILabel!
     
+    // When the UI Image in the view expense page is tapped,
+    // the image expands full screen to allow for better viewing
+    @IBAction func expandExpenseViewUIImage(_ sender: UITapGestureRecognizer)
+    {
+        let fullscreenImage = sender.view as! UIImageView
+        let newImageView = UIImageView(image: fullscreenImage.image)
+        newImageView.frame = UIScreen.main.bounds
+        newImageView.backgroundColor = .black
+        newImageView.contentMode = .scaleAspectFit
+        newImageView.isUserInteractionEnabled = true
+        
+        let tapFullscreenImage = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        newImageView.addGestureRecognizer(tapFullscreenImage)
+        self.view.addSubview(newImageView)
+        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    // When the fullscreen image is tapped, the fullscreen image
+    // is removed and the view expense page is visible again
+    @objc func dismissFullscreenImage(sender: UITapGestureRecognizer)
+    {
+        self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        sender.view?.removeFromSuperview()
+    }
+    
+    
+    // UIView containers on View Expenses page
+    @IBOutlet weak var expenseDescriptionUIView: UIView!
+    @IBOutlet weak var expenseReceiptDateUIView: UIView!
+    @IBOutlet weak var expenseTotalAmountUIView: UIView!
+    @IBOutlet weak var expenseDateAddedUIView: UIView!
+    @IBOutlet weak var expensePaidDateUIView: UIView!
 
     
     override func viewDidLoad() {
@@ -55,14 +89,14 @@ class ExpenseViewController: UIViewController, UIImagePickerControllerDelegate &
             expenseViewTotalAmountLabel.text = String(expense.expenseTotalAmount)
             expenseViewDateAddedLabel.text = expense.expenseAddedDate
             expenseViewPaidDateLabel.text = expense.expensePaidDate
+            
+            // Round the corners of each UIView
+            expenseDescriptionUIView.layer.cornerRadius = 10
+            expenseReceiptDateUIView.layer.cornerRadius = 10
+            expenseTotalAmountUIView.layer.cornerRadius = 10
+            expenseDateAddedUIView.layer.cornerRadius = 10
+            expensePaidDateUIView.layer.cornerRadius = 10
         }
-        
-        // Round the corners of each UIView
-        //descriptionView.layer.cornerRadius = 10
-        //receiptDateView.layer.cornerRadius = 10
-        //totalAmountView.layer.cornerRadius = 10
-        //dateAddedView.layer.cornerRadius = 10
-        //paidDateView.layer.cornerRadius = 10
     }
     
     
