@@ -14,6 +14,7 @@
 		B514057B27EF2CBA000AE3D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B514057A27EF2CBA000AE3D0 /* Assets.xcassets */; };
 		B514057E27EF2CBA000AE3D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B514057C27EF2CBA000AE3D0 /* LaunchScreen.storyboard */; };
 		B514058627EF2D48000AE3D0 /* Expenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = B514058527EF2D48000AE3D0 /* Expenses.swift */; };
+		B5FEB8DA27F0063300291F4A /* ExpensesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FEB8D927F0063300291F4A /* ExpensesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		B514057D27EF2CBA000AE3D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B514057F27EF2CBA000AE3D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B514058527EF2D48000AE3D0 /* Expenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expenses.swift; sourceTree = "<group>"; };
+		B5FEB8D927F0063300291F4A /* ExpensesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				B514057327EF2CB8000AE3D0 /* SceneDelegate.swift */,
 				B514057527EF2CB8000AE3D0 /* ExpenseViewController.swift */,
 				B514057727EF2CB8000AE3D0 /* Main.storyboard */,
+				B5FEB8D927F0063300291F4A /* ExpensesTableViewController.swift */,
 				B514058527EF2D48000AE3D0 /* Expenses.swift */,
 				B514057A27EF2CBA000AE3D0 /* Assets.xcassets */,
 				B514057C27EF2CBA000AE3D0 /* LaunchScreen.storyboard */,
@@ -144,6 +147,7 @@
 				B514058627EF2D48000AE3D0 /* Expenses.swift in Sources */,
 				B514057627EF2CB8000AE3D0 /* ExpenseViewController.swift in Sources */,
 				B514057227EF2CB8000AE3D0 /* AppDelegate.swift in Sources */,
+				B5FEB8DA27F0063300291F4A /* ExpensesTableViewController.swift in Sources */,
 				B514057427EF2CB8000AE3D0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -19,9 +19,9 @@ class Expenses: NSObject, NSCoding
     var expensePaidDate: String
     var expenseImage: UIImage?
     
-    init?(expenseName:String, expenseDescription:String, expenseReceiptDate:String, expenseTotalAmount:Double, isExpenseVATIncluded:Bool, expensePaidDate: String, expenseImage:UIImage?)
+    init?(expenseName:String, expenseDescription:String, expenseReceiptDate:String, expenseTotalAmount:Double, isExpenseVATIncluded:Bool, expenseImage:UIImage?)
     {
-        if(expenseName.isEmpty || expenseDescription.isEmpty || expenseReceiptDate.isEmpty || expensePaidDate.isEmpty)
+        if(expenseName == "" || expenseDescription == "" || expenseReceiptDate == "")
         {
             // One or more variables are empty so the init has failed
             return nil
@@ -35,7 +35,7 @@ class Expenses: NSObject, NSCoding
         self.isExpensePaid = false
         self.isExpenseVATIncluded = isExpenseVATIncluded
         self.expenseAddedDate = Date.now.formatted(.dateTime)
-        self.expensePaidDate = expensePaidDate
+        self.expensePaidDate = ""
         self.expenseImage = expenseImage
     }
     
@@ -111,13 +111,6 @@ class Expenses: NSObject, NSCoding
             return nil;
         }
         
-        guard let expensePaidDate = coder.decodeObject(forKey:PropertyKey.expensePaidDate) as? String
-        else
-        {
-            print("[ERROR] Unable to decode Expense Paid Date...")
-            return nil;
-        }
-        
         guard let expenseImage = coder.decodeObject(forKey:PropertyKey.expenseImage) as? UIImage
         else
         {
@@ -125,7 +118,7 @@ class Expenses: NSObject, NSCoding
             return nil;
         }
         
-        self.init(expenseName:expenseName, expenseDescription:expenseDescription, expenseReceiptDate:expenseReceiptDate, expenseTotalAmount:expenseTotalAmount, isExpenseVATIncluded:isExpenseVATIncluded, expensePaidDate:expensePaidDate, expenseImage:expenseImage)
+        self.init(expenseName:expenseName, expenseDescription:expenseDescription, expenseReceiptDate:expenseReceiptDate, expenseTotalAmount:expenseTotalAmount, isExpenseVATIncluded:isExpenseVATIncluded, expenseImage:expenseImage)
     }
 }
 

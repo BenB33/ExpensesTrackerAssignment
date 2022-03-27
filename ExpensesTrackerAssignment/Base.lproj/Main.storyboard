@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ywF-bG-eb2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="J7Y-H4-pd9">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
@@ -8,16 +8,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--Expenses-->
         <scene sceneID="Jbc-Ib-TdL">
             <objects>
-                <tableViewController id="lhr-xG-cX4" sceneMemberID="viewController">
+                <tableViewController id="lhr-xG-cX4" customClass="ExpensesTableViewController" customModule="ExpensesTrackerAssignment" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="CRu-vc-rDS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="dIW-nl-3aF">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExpenseCell" id="dIW-nl-3aF">
                                 <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dIW-nl-3aF" id="mtV-60-VOw">
@@ -31,10 +31,17 @@
                             <outlet property="delegate" destination="lhr-xG-cX4" id="h59-N2-Dfg"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Expenses" id="H0s-H3-CYF">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="zDf-kJ-xRe">
+                            <connections>
+                                <segue destination="u1o-SJ-OQK" kind="showDetail" identifier="AddExpense" id="Eyv-gZ-Ww4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DI7-r8-NnQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2664" y="-173"/>
+            <point key="canvasLocation" x="1068.1159420289855" y="-173.4375"/>
         </scene>
         <!--Expense View Controller-->
         <scene sceneID="7UG-k2-AXp">
@@ -44,7 +51,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderExpenseImage" translatesAutoresizingMaskIntoConstraints="NO" id="aQT-Rq-f2O">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderExpenseImage" translatesAutoresizingMaskIntoConstraints="NO" id="aQT-Rq-f2O">
                                 <rect key="frame" x="82" y="63.999999999999986" width="250" height="187.66666666666663"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="aQT-Rq-f2O" secondAttribute="height" multiplier="4:3" id="8zg-BM-078"/>
@@ -222,24 +229,10 @@
                             <constraint firstItem="8fH-XR-xfN" firstAttribute="top" secondItem="SdD-og-HWD" secondAttribute="bottom" constant="20" id="y8Z-4j-Ayi"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="dateAddedView" destination="SdD-og-HWD" id="FFC-yr-17h"/>
-                        <outlet property="descriptionView" destination="Eq2-Ol-8jE" id="ObB-uB-01j"/>
-                        <outlet property="expenseDateAddedLabel" destination="Qqa-o4-gXA" id="BZJ-D3-h0C"/>
-                        <outlet property="expenseDescriptionLabel" destination="Fd5-A6-U3d" id="fkF-bj-Gg3"/>
-                        <outlet property="expenseNameLabel" destination="RdT-MY-H48" id="vwO-Ae-hHO"/>
-                        <outlet property="expensePaidDateLabel" destination="05m-S0-oD1" id="XRo-Lc-hEH"/>
-                        <outlet property="expenseReceiptDateLabel" destination="D0G-Ww-myX" id="hBh-KE-oCY"/>
-                        <outlet property="expenseTotalAmountLabel" destination="PBg-yn-2SY" id="FxQ-kF-Hhg"/>
-                        <outlet property="expenseUIImage" destination="aQT-Rq-f2O" id="lD8-ye-gUX"/>
-                        <outlet property="paidDateView" destination="8fH-XR-xfN" id="Dl2-l0-Pr3"/>
-                        <outlet property="receiptDateView" destination="4E0-qW-6F6" id="pha-VZ-84k"/>
-                        <outlet property="totalAmountView" destination="2uV-dM-lOf" id="8y4-2P-dHN"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hq-tW-83H" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1122" y="-173"/>
+            <point key="canvasLocation" x="1004" y="-1085"/>
         </scene>
         <!--Expense View Controller-->
         <scene sceneID="FQH-tb-aBZ">
@@ -250,20 +243,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderExpenseImage" translatesAutoresizingMaskIntoConstraints="NO" id="LDb-Ha-1oz">
-                                <rect key="frame" x="82" y="63.999999999999986" width="250" height="187.66666666666663"/>
+                                <rect key="frame" x="82" y="107.99999999999999" width="250" height="187.66666666666663"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="LDb-Ha-1oz" secondAttribute="height" multiplier="4:3" id="J6s-Du-6mb"/>
                                     <constraint firstAttribute="width" constant="250" id="XxC-Pc-drb"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o67-bJ-dr8">
-                                <rect key="frame" x="15" y="256.66666666666669" width="384" height="21"/>
+                                <rect key="frame" x="15" y="300.66666666666669" width="384" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="linkColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3TS-a8-xBi">
-                                <rect key="frame" x="0.0" y="307.66666666666669" width="414" height="131"/>
+                                <rect key="frame" x="0.0" y="351.66666666666669" width="414" height="131"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Expense Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uDF-cL-3jx">
                                         <rect key="frame" x="15" y="5" width="384" height="34"/>
@@ -294,7 +287,7 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="34" id="iqu-SW-8va"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense Paid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vn0-og-zdK">
                                         <rect key="frame" x="15" y="100" width="250" height="21"/>
@@ -333,7 +326,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uvz-wD-dfC">
-                                <rect key="frame" x="0.0" y="468.66666666666669" width="414" height="102.33333333333331"/>
+                                <rect key="frame" x="0.0" y="512.66666666666663" width="414" height="102.33333333333337"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmk-ey-g3x">
                                         <rect key="frame" x="15" y="10" width="384" height="14.333333333333336"/>
@@ -342,7 +335,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WuC-TH-zc4">
-                                        <rect key="frame" x="15" y="29.333333333333314" width="384" height="68"/>
+                                        <rect key="frame" x="15" y="29.333333333333371" width="384" height="68"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="68" id="aOe-4l-Bu8"/>
                                         </constraints>
@@ -363,7 +356,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HVB-Yk-tiX">
-                                <rect key="frame" x="0.0" y="601" width="414" height="119.33333333333337"/>
+                                <rect key="frame" x="0.0" y="645" width="414" height="119.33333333333337"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense Receipt Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M8D-Sa-QnN">
                                         <rect key="frame" x="15" y="10" width="384" height="14.333333333333336"/>
@@ -390,7 +383,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dMW-U3-Hmd">
-                                <rect key="frame" x="0.0" y="750.33333333333337" width="414" height="41"/>
+                                <rect key="frame" x="0.0" y="794.33333333333337" width="414" height="41"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VAT Included" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ae5-63-Lt3">
                                         <rect key="frame" x="15" y="10" width="250" height="21"/>
@@ -439,10 +432,69 @@
                             <constraint firstItem="LDb-Ha-1oz" firstAttribute="centerX" secondItem="FeK-SW-eml" secondAttribute="centerX" id="ybc-ot-Mjg"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="DLw-ty-Uag">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="kib-Nb-qKX">
+                            <connections>
+                                <action selector="cancelExpenseCreation:" destination="ZHg-m8-A4s" id="Qa7-lT-TD0"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="dA5-JN-ClE">
+                            <connections>
+                                <segue destination="hgz-dK-6Ta" kind="unwind" unwindAction="unwindToExpensesWithSender:" id="OPy-98-YmR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="expenseDescriptionTextField" destination="WuC-TH-zc4" id="coS-HU-bUo"/>
+                        <outlet property="expenseNameTextField" destination="uDF-cL-3jx" id="z70-5a-MNE"/>
+                        <outlet property="expenseReceiptDatePicker" destination="lPp-YD-es1" id="keS-g3-Bed"/>
+                        <outlet property="expenseTotalAmountTextField" destination="TG2-4C-T0S" id="E7p-Ff-q3y"/>
+                        <outlet property="expenseUIImage" destination="LDb-Ha-1oz" id="rIc-Ed-tfb"/>
+                        <outlet property="isExpensePaidSwitch" destination="TAr-Vi-sC9" id="taY-VP-ny8"/>
+                        <outlet property="isVATIncludedSwitch" destination="C0a-Ci-O79" id="qmM-ku-0ui"/>
+                        <outlet property="saveExpenseButton" destination="dA5-JN-ClE" id="qlC-xQ-wmq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="joI-ao-rQR" sceneMemberID="firstResponder"/>
+                <exit id="hgz-dK-6Ta" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1870" y="-173"/>
+            <point key="canvasLocation" x="3042.0289855072465" y="-173.4375"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="e8x-sO-99D">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="J7Y-H4-pd9" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="yAT-lJ-vnx">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="lhr-xG-cX4" kind="relationship" relationship="rootViewController" id="3u7-7k-XZ5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6gu-Qp-HO7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="157.97101449275362" y="-173.4375"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="a3v-Wv-7pB">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="u1o-SJ-OQK" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YBA-Nm-Xkb">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ZHg-m8-A4s" kind="relationship" relationship="rootViewController" id="vIr-Ug-ahj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z5i-Qk-TaE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2131.8840579710145" y="-173.4375"/>
         </scene>
     </scenes>
     <resources>

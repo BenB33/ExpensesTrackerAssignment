@@ -11,22 +11,24 @@ class ExpenseViewController: UIViewController
 {
     var expense:Expenses?
     
-    @IBOutlet weak var expenseNameLabel: UILabel!
+    @IBOutlet weak var saveExpenseButton: UIBarButtonItem!
+    
+    @IBAction func cancelExpenseCreation(_ sender: Any)
+    {
+        // If cancelled, dismiss the modal view
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    // Outlets for each element in the edit expense page
     @IBOutlet weak var expenseUIImage: UIImageView!
-    @IBOutlet weak var expenseDescriptionLabel: UILabel!
-    @IBOutlet weak var expenseReceiptDateLabel: UILabel!
-    @IBOutlet weak var expenseTotalAmountLabel: UILabel!
-    @IBOutlet weak var expenseDateAddedLabel: UILabel!
-    @IBOutlet weak var expensePaidDateLabel: UILabel!
-    
-    // UIViews that contain labels
-    @IBOutlet weak var descriptionView: UIView!
-    @IBOutlet weak var receiptDateView: UIView!
-    @IBOutlet weak var totalAmountView: UIView!
-    @IBOutlet weak var dateAddedView: UIView!
-    @IBOutlet weak var paidDateView: UIView!
-    
-    
+    @IBOutlet weak var expenseNameTextField: UITextField!
+    @IBOutlet weak var expenseTotalAmountTextField: UITextField!
+    @IBOutlet weak var isExpensePaidSwitch: UISwitch!
+    @IBOutlet weak var expenseDescriptionTextField: UITextField!
+    @IBOutlet weak var expenseReceiptDatePicker: UIDatePicker!
+    @IBOutlet weak var isVATIncludedSwitch: UISwitch!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +41,29 @@ class ExpenseViewController: UIViewController
         //dateAddedView.layer.cornerRadius = 10
         //paidDateView.layer.cornerRadius = 10
     }
-
+    
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        // Check to see if the save button was pressed
+        guard let button = sender as? UIBarButtonItem, button === saveExpenseButton
+        else
+        {
+            return
+        }
+        
+        // If the save button was pressed, the follow code will run
+        let expenseImage = expenseUIImage.image
+        let expenseName = expenseNameTextField.text ?? ""
+        let expenseTotalAmount = Double(expenseTotalAmountTextField.text!) ?? 0
+        let expenseDescription = expenseDescriptionTextField.text ?? ""
+        let expenseReceiptDate = expenseReceiptDatePicker.date.formatted()
+        let isVATIncluded = isVATIncludedSwitch.isOn
+        
+        expense = Expenses(expenseName: expenseName, expenseDescription: expenseDescription, expenseReceiptDate: expenseReceiptDate, expenseTotalAmount: expenseTotalAmount, isExpenseVATIncluded: isVATIncluded, expenseImage: expenseImage)
+    }
 
 }
 
