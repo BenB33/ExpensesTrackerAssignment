@@ -33,11 +33,11 @@ class ExpenseViewController: UIViewController
         // Do any additional setup after loading the view.
         
         // Round the corners of each UIView
-        descriptionView.layer.cornerRadius = 10
-        receiptDateView.layer.cornerRadius = 10
-        totalAmountView.layer.cornerRadius = 10
-        dateAddedView.layer.cornerRadius = 10
-        paidDateView.layer.cornerRadius = 10
+        //descriptionView.layer.cornerRadius = 10
+        //receiptDateView.layer.cornerRadius = 10
+        //totalAmountView.layer.cornerRadius = 10
+        //dateAddedView.layer.cornerRadius = 10
+        //paidDateView.layer.cornerRadius = 10
     }
 
 
