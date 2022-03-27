@@ -35,7 +35,7 @@ class Expenses: NSObject, NSCoding
         self.isExpensePaid = false
         self.isExpenseVATIncluded = isExpenseVATIncluded
         self.expenseAddedDate = Date.now.formatted(.dateTime)
-        self.expensePaidDate = ""
+        self.expensePaidDate = "Unpaid"
         self.expenseImage = expenseImage
     }
     

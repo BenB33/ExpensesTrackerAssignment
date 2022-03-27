@@ -82,23 +82,83 @@ class ExpensesTableViewController: UITableViewController
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        // Call the parent and let them know to segue
+        super.prepare(for: segue, sender: sender)
+        
+        
+        switch(segue.identifier ?? "")
+        {
+        case "AddExpense":
+            
+            break
+            
+        case "ViewExpense":
+            // Prepare to display the expense on the view page
+            
+            // Obtain the new view controller from the segue destination
+            guard let expenseViewController = segue.destination as? ExpenseViewController
+            else
+            {
+                print("[ERROR] Unable to obtain ExpenseViewController...")
+                break
+            }
+            
+            // Obtain the index path from the table view selected row
+            guard let indexPath = tableView.indexPathForSelectedRow
+            else
+            {
+                print("[ERROR] Unable to obtain index path...")
+                break
+            }
+            
+            // Grab the corrisponding expense from the expense array using
+            // the previously obtained index path
+            let selectedExpense = expensesArray[indexPath.row]
+            expenseViewController.expense = selectedExpense
+            
+            break
+            
+        case "EditExpense":
+            
+            break
+            
+        default:
+            break
+        }
     }
-    */
+    
     
     
     @IBAction func unwindToExpenses(sender:UIStoryboardSegue)
     {
         if let sourceViewController = sender.source as? ExpenseViewController, let expense = sourceViewController.expense
         {
-            // Add the new expense to the array from the segue
-            expensesArray.append(expense)
+            // Check if editing or adding an expense
+            if let selectedIndexPath = tableView.indexPathForSelectedRow
+            {
+                // If there is a selected row in the table, then edit
+                expensesArray[selectedIndexPath.row] = expense
+                
+                // Update the table view
+                tableView.reloadRows(at:[selectedIndexPath], with:.none)
+            }
+            else
+            {
+                // There is no selected row in the table, then add
+                // Add the new expense to the array from the segue
+                expensesArray.append(expense)
+            }
+            
+
             
             // Update the table at the correct index path
             let newIndexPath = IndexPath(row:expensesArray.count-1, section:0)
