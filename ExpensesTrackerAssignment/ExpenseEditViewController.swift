@@ -26,8 +26,19 @@ class ExpenseEditViewController: UIViewController, UIImagePickerControllerDelega
     
     @IBAction func cancelExpenseCreation(_ sender: Any)
     {
-        // If cancelled, dismiss the modal view
-        dismiss(animated: true, completion: nil)
+        let isPresentingModeAdd = presentingViewController is UINavigationController
+        if isPresentingModeAdd
+        {
+            // If cancelled, dismiss the modal view
+            dismiss(animated: true, completion: nil)
+        }
+        else
+        {
+            if let owningNavController = navigationController
+            {
+                owningNavController.popViewController(animated: true)
+            }
+        }
     }
     
     
@@ -85,6 +96,18 @@ class ExpenseEditViewController: UIViewController, UIImagePickerControllerDelega
     {
         super.viewDidLoad()
 
+        if let expense = expense
+        {
+            expenseUIImage.image = expense.expenseImage
+            expenseNameTextField.text = expense.expenseName
+            expenseTotalAmountTextField.text = String(expense.expenseTotalAmount)
+            isExpensePaidSwitch.setOn(expense.isExpensePaid, animated: true)
+            expenseDescriptionTextField.text = expense.expenseDescription
+            let receiptDateString = DateFormatter()
+            let receiptDateDate = receiptDateString.date(from: expense.expenseReceiptDate)
+            expenseReceiptDatePicker.date = receiptDateDate ?? Date.now
+            isVATIncludedSwitch.setOn(expense.isExpenseVATIncluded, animated: true)
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -102,7 +125,6 @@ class ExpenseEditViewController: UIViewController, UIImagePickerControllerDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         super.prepare(for: segue, sender: sender)
-        
         print("Entered prepare function")
         
         switch(segue.identifier ?? "")

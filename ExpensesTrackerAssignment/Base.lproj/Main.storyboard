@@ -306,7 +306,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1935" y="-652"/>
+            <point key="canvasLocation" x="1919" y="269"/>
         </scene>
         <!--Expense Edit View Controller-->
         <scene sceneID="FQH-tb-aBZ">
@@ -545,7 +545,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2888" y="-173"/>
+            <point key="canvasLocation" x="2729" y="-173"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="e8x-sO-99D">
@@ -581,7 +581,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z5i-Qk-TaE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1936" y="421"/>
+            <point key="canvasLocation" x="1919" y="-540"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

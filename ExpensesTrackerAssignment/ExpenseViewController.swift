@@ -56,7 +56,8 @@ class ExpenseViewController: UIViewController
     @IBOutlet weak var expensePaidDateUIView: UIView!
 
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
@@ -99,5 +100,30 @@ class ExpenseViewController: UIViewController
             expenseDateAddedUIView.layer.cornerRadius = 10
             expensePaidDateUIView.layer.cornerRadius = 10
         }
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        print("Entered view prepare function")
+        
+        switch(segue.identifier ?? "")
+        {
+        case "EditExpense":
+            print("Reached Edit Expense Switch Case")
+            guard let editExpenseViewController = segue.destination as? ExpenseEditViewController else
+            {
+                print("[ERROR] Unable to obtain the edit view controller")
+                break;
+            }
+            
+            editExpenseViewController.expense = self.expense
+            break
+            
+        default:
+            print("Reached default switch case")
+            break
+        }
+        
     }
 }

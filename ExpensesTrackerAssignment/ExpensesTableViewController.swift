@@ -196,6 +196,14 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
             expenseViewController.expense = selectedExpense
             
             break
+            
+        case "AddExpense":
+            print("Reached 'AddExpense' switch case")
+            
+            
+            
+            break
+
         default:
             break
         }
@@ -205,12 +213,12 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
     
     @IBAction func unwindToExpenses(sender:UIStoryboardSegue)
     {
-        if let sourceViewController = sender.source as? ExpenseViewController, let expense = sourceViewController.expense
+        if let sourceViewController = sender.source as? ExpenseEditViewController, let expense = sourceViewController.expense
         {
             // Check if editing or adding an expense
             if let selectedIndexPath = tableView.indexPathForSelectedRow
             {
-                let expenseToDelete = filteredExpensesArray[selectedIndexPath.row]
+                let expenseToEdit = filteredExpensesArray[selectedIndexPath.row]
                 
                 // If there is a selected row in the table, then edit
                 filteredExpensesArray[selectedIndexPath.row] = expense
@@ -219,11 +227,13 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
                 // original list to find the correct one to edit
                 //
                 // The expense added time offers a unique key identifier as the time is exact
-                for expense in selectedIndexPath.row ..< expensesArray.count
+                for expenseCount in selectedIndexPath.row ..< expensesArray.count
                 {
-                    if(expensesArray[expense].expenseName == expenseToDelete.expenseName && expensesArray[expense].expenseAddedDate == expenseToDelete.expenseAddedDate)
+                    if(expensesArray[expenseCount].expenseName == expenseToEdit.expenseName && expensesArray[expenseCount].expenseAddedDate == expenseToEdit.expenseAddedDate)
                     {
-                        expensesArray.remove(at: expense)
+                        print("Found an expense that matches")
+                        expensesArray[expenseCount] = expense
+                        break
                     }
                 }
                 
