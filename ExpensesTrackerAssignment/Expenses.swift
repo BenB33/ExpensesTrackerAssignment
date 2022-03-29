@@ -19,7 +19,7 @@ class Expenses: NSObject, NSCoding
     var expensePaidDate: String
     var expenseImage: UIImage?
     
-    init?(expenseName:String, expenseDescription:String, expenseReceiptDate:String, expenseTotalAmount:Double, isExpenseVATIncluded:Bool, expenseImage:UIImage?)
+    init?(expenseName:String, expenseDescription:String, expenseReceiptDate:String, expenseTotalAmount:Double, isExpenseVATIncluded:Bool, expenseImage:UIImage?, isExpensePaid:Bool)
     {
         if(expenseName == "" || expenseDescription == "" || expenseReceiptDate == "")
         {
@@ -31,22 +31,12 @@ class Expenses: NSObject, NSCoding
         self.expenseName = expenseName
         self.expenseDescription = expenseDescription
         self.expenseReceiptDate = expenseReceiptDate
-        self.isExpensePaid = false
+        self.expenseTotalAmount = expenseTotalAmount
+        self.isExpensePaid = isExpensePaid
         self.isExpenseVATIncluded = isExpenseVATIncluded
         self.expenseAddedDate = Date.now.formatted(.dateTime)
         self.expensePaidDate = "Unpaid"
         self.expenseImage = expenseImage
-        
-        // Handling the possibility of VAT being included
-        if(isExpenseVATIncluded == true)
-        {
-            let totalAmountIncludingVAT = expenseTotalAmount + (expenseTotalAmount * 0.2)
-            self.expenseTotalAmount = totalAmountIncludingVAT
-        }
-        else
-        {
-            self.expenseTotalAmount = expenseTotalAmount
-        }
     }
     
     // Save the expense data to the phone storage
@@ -85,50 +75,47 @@ class Expenses: NSObject, NSCoding
     // Secondary constructor to use when it is convenient
     //
     required convenience init?(coder: NSCoder) {
+        
         // Ensure the information can be decoded
         guard let expenseName = coder.decodeObject(forKey:PropertyKey.expenseName) as? String
         else
         {
             print("[ERROR] Unable to decode Expense Name...")
-            return nil;
+            return nil
         }
         
         guard let expenseDescription = coder.decodeObject(forKey:PropertyKey.expenseDescription) as? String
         else
         {
             print("[ERROR] Unable to decode Expense Description...")
-            return nil;
+            return nil
         }
         
         guard let expenseReceiptDate = coder.decodeObject(forKey:PropertyKey.expenseReceiptDate) as? String
         else
         {
             print("[ERROR] Unable to decode Expense Receipt Date...")
-            return nil;
-        }
-        
-        guard let expenseTotalAmount = coder.decodeObject(forKey:PropertyKey.expenseTotalAmount) as? Double
-        else
-        {
-            print("[ERROR] Unable to decode Expense Total Amount...")
-            return nil;
-        }
-        
-        guard let isExpenseVATIncluded = coder.decodeObject(forKey:PropertyKey.isExpenseVATIncluded) as? Bool
-        else
-        {
-            print("[ERROR] Unable to decode Expense VAT Included Flag...")
-            return nil;
+            return nil
         }
         
         guard let expenseImage = coder.decodeObject(forKey:PropertyKey.expenseImage) as? UIImage
         else
         {
             print("[ERROR] Unable to decode Expense Image...")
-            return nil;
+            return nil
         }
         
-        self.init(expenseName:expenseName, expenseDescription:expenseDescription, expenseReceiptDate:expenseReceiptDate, expenseTotalAmount:expenseTotalAmount, isExpenseVATIncluded:isExpenseVATIncluded, expenseImage:expenseImage)
+        // Decoding a double using .decodeDouble so decoding cannot fail
+        let expenseTotalAmount = coder.decodeDouble(forKey:PropertyKey.expenseTotalAmount)
+        
+        // Decoding a Bool using .decodeBool so decoding cannot fail
+        let isExpenseVATIncluded = coder.decodeBool(forKey:PropertyKey.isExpenseVATIncluded)
+        
+        // Decoding a Bool using .decodeBool so decoding cannot fail
+        let isExpensePaid = coder.decodeBool(forKey:PropertyKey.isExpensePaid)
+        
+        // Call to the init function using the decoded values
+        self.init(expenseName:expenseName, expenseDescription:expenseDescription, expenseReceiptDate:expenseReceiptDate, expenseTotalAmount:expenseTotalAmount, isExpenseVATIncluded:isExpenseVATIncluded, expenseImage:expenseImage, isExpensePaid:isExpensePaid)
     }
 }
 

@@ -12,19 +12,62 @@
         <scene sceneID="Jbc-Ib-TdL">
             <objects>
                 <tableViewController id="lhr-xG-cX4" customClass="ExpensesTableViewController" customModule="ExpensesTrackerAssignment" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="CRu-vc-rDS">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="85" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="CRu-vc-rDS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="rUC-lo-rOG">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="lhr-xG-cX4" id="HHb-SB-Yif"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExpenseCell" id="dIW-nl-3aF">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExpenseCell" rowHeight="85" id="dIW-nl-3aF" customClass="ExpenseTableViewCell" customModule="ExpensesTrackerAssignment" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88.666666030883789" width="414" height="85"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dIW-nl-3aF" id="mtV-60-VOw">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="85"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eth-TN-3hl">
+                                            <rect key="frame" x="25" y="42" width="304" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" systemColor="secondaryLabelColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="expenseUnpaidImage" translatesAutoresizingMaskIntoConstraints="NO" id="zgG-2b-V0C">
+                                            <rect key="frame" x="334" y="5" width="75" height="75"/>
+                                            <color key="tintColor" systemColor="systemGreenColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="zgG-2b-V0C" secondAttribute="height" multiplier="1:1" id="E6o-rr-yna"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bf5-yv-hfh">
+                                            <rect key="frame" x="25" y="16" width="299" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="zgG-2b-V0C" firstAttribute="top" secondItem="mtV-60-VOw" secondAttribute="top" constant="5" id="IdH-Ce-xKL"/>
+                                        <constraint firstItem="bf5-yv-hfh" firstAttribute="leading" secondItem="mtV-60-VOw" secondAttribute="leadingMargin" constant="5" id="WG4-RF-gsl"/>
+                                        <constraint firstAttribute="bottom" secondItem="zgG-2b-V0C" secondAttribute="bottom" constant="5" id="acV-qP-Pqt"/>
+                                        <constraint firstItem="bf5-yv-hfh" firstAttribute="top" secondItem="mtV-60-VOw" secondAttribute="topMargin" constant="5" id="bPq-aB-4zm"/>
+                                        <constraint firstAttribute="trailing" secondItem="zgG-2b-V0C" secondAttribute="trailing" constant="5" id="bsq-CI-7vZ"/>
+                                        <constraint firstItem="zgG-2b-V0C" firstAttribute="leading" secondItem="Eth-TN-3hl" secondAttribute="trailing" constant="5" id="f88-Of-X1Y"/>
+                                        <constraint firstItem="Eth-TN-3hl" firstAttribute="top" secondItem="bf5-yv-hfh" secondAttribute="bottom" constant="5" id="hgL-x7-1CN"/>
+                                        <constraint firstItem="zgG-2b-V0C" firstAttribute="leading" secondItem="bf5-yv-hfh" secondAttribute="trailing" constant="10" id="lNf-cm-8u4"/>
+                                        <constraint firstItem="Eth-TN-3hl" firstAttribute="leading" secondItem="mtV-60-VOw" secondAttribute="leadingMargin" constant="5" id="vSu-6R-rKz"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="expenseDateCellLabel" destination="Eth-TN-3hl" id="sQo-eJ-5So"/>
+                                    <outlet property="expenseIsPaidUIImage" destination="zgG-2b-V0C" id="r8W-7m-HZi"/>
+                                    <outlet property="expenseNameCellLabel" destination="bf5-yv-hfh" id="2Kr-QU-aJY"/>
                                     <segue destination="ywF-bG-eb2" kind="show" identifier="ViewExpense" id="Zyr-dH-P4f"/>
                                 </connections>
                             </tableViewCell>
@@ -44,7 +87,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DI7-r8-NnQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1068.1159420289855" y="-173.4375"/>
+            <point key="canvasLocation" x="1066.6666666666667" y="-173.4375"/>
         </scene>
         <!--Expense View Controller-->
         <scene sceneID="7UG-k2-AXp">
@@ -66,7 +109,7 @@
                                 </connections>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RdT-MY-H48">
-                                <rect key="frame" x="20" y="305.66666666666669" width="374" height="30"/>
+                                <rect key="frame" x="126.33333333333333" y="305.66666666666669" width="161.66666666666669" height="30"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -223,7 +266,6 @@
                             <constraint firstItem="2uV-dM-lOf" firstAttribute="top" secondItem="4E0-qW-6F6" secondAttribute="bottom" constant="20" id="HNM-I7-zeD"/>
                             <constraint firstItem="juH-0n-NvD" firstAttribute="trailing" secondItem="Eq2-Ol-8jE" secondAttribute="trailing" constant="10" id="Hjq-qX-Mbs"/>
                             <constraint firstItem="juH-0n-NvD" firstAttribute="trailing" secondItem="SdD-og-HWD" secondAttribute="trailing" constant="10" id="IR7-HG-2Eg"/>
-                            <constraint firstItem="RdT-MY-H48" firstAttribute="leading" secondItem="juH-0n-NvD" secondAttribute="leading" constant="20" id="Lft-Yd-f91"/>
                             <constraint firstItem="juH-0n-NvD" firstAttribute="trailing" secondItem="2uV-dM-lOf" secondAttribute="trailing" constant="10" id="NAy-Nc-bI8"/>
                             <constraint firstItem="SdD-og-HWD" firstAttribute="top" secondItem="2uV-dM-lOf" secondAttribute="bottom" constant="20" id="Szl-Ey-dDV"/>
                             <constraint firstItem="Eq2-Ol-8jE" firstAttribute="centerX" secondItem="Odq-Em-wr2" secondAttribute="centerX" id="aI6-RE-sis"/>
@@ -232,7 +274,6 @@
                             <constraint firstItem="2uV-dM-lOf" firstAttribute="leading" secondItem="juH-0n-NvD" secondAttribute="leading" constant="10" id="ekV-tf-BQN"/>
                             <constraint firstItem="4E0-qW-6F6" firstAttribute="leading" secondItem="juH-0n-NvD" secondAttribute="leading" constant="10" id="jNM-1k-0Ok"/>
                             <constraint firstItem="aQT-Rq-f2O" firstAttribute="top" secondItem="juH-0n-NvD" secondAttribute="top" constant="20" id="ti1-4f-tMr"/>
-                            <constraint firstItem="juH-0n-NvD" firstAttribute="trailing" secondItem="RdT-MY-H48" secondAttribute="trailing" constant="20" id="y0e-3Q-MWz"/>
                             <constraint firstItem="8fH-XR-xfN" firstAttribute="top" secondItem="SdD-og-HWD" secondAttribute="bottom" constant="20" id="y8Z-4j-Ayi"/>
                         </constraints>
                     </view>
@@ -267,10 +308,10 @@
             </objects>
             <point key="canvasLocation" x="1935" y="-652"/>
         </scene>
-        <!--Expense View Controller-->
+        <!--Expense Edit View Controller-->
         <scene sceneID="FQH-tb-aBZ">
             <objects>
-                <viewController id="ZHg-m8-A4s" customClass="ExpenseViewController" customModule="ExpensesTrackerAssignment" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ZHg-m8-A4s" customClass="ExpenseEditViewController" customModule="ExpensesTrackerAssignment" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FeK-SW-eml">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -332,9 +373,6 @@
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense Paid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vn0-og-zdK">
                                         <rect key="frame" x="15" y="100" width="250" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="250" id="fQe-aI-Gp7"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -357,7 +395,9 @@
                                     <constraint firstItem="4l6-AG-ST0" firstAttribute="top" secondItem="uDF-cL-3jx" secondAttribute="bottom" constant="5" id="UUx-fG-9at"/>
                                     <constraint firstAttribute="bottom" secondItem="TAr-Vi-sC9" secondAttribute="bottom" constant="5" id="VzS-ny-heY"/>
                                     <constraint firstItem="4l6-AG-ST0" firstAttribute="leading" secondItem="3TS-a8-xBi" secondAttribute="leading" constant="15" id="Ylq-l2-zo3"/>
+                                    <constraint firstItem="TAr-Vi-sC9" firstAttribute="leading" secondItem="Vn0-og-zdK" secondAttribute="trailing" constant="15" id="aFk-bg-Pmc"/>
                                     <constraint firstAttribute="trailing" secondItem="O2c-hX-RiW" secondAttribute="trailing" id="dzF-PR-bGo"/>
+                                    <constraint firstAttribute="trailing" secondItem="TAr-Vi-sC9" secondAttribute="trailing" constant="85" id="fSL-2z-3zT"/>
                                     <constraint firstItem="TG2-4C-T0S" firstAttribute="leading" secondItem="3TS-a8-xBi" secondAttribute="leading" constant="15" id="mjV-I3-8WL"/>
                                     <constraint firstItem="uDF-cL-3jx" firstAttribute="top" secondItem="3TS-a8-xBi" secondAttribute="top" constant="5" id="pVc-du-4JT"/>
                                     <constraint firstItem="O2c-hX-RiW" firstAttribute="leading" secondItem="3TS-a8-xBi" secondAttribute="leading" constant="15" id="rpA-yR-AR1"/>
@@ -428,9 +468,6 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VAT Included" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ae5-63-Lt3">
                                         <rect key="frame" x="15" y="10" width="250" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="250" id="bjP-eB-GUg"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -446,6 +483,7 @@
                                     <constraint firstAttribute="bottom" secondItem="C0a-Ci-O79" secondAttribute="bottom" constant="5" id="TX2-VB-Mxt"/>
                                     <constraint firstItem="C0a-Ci-O79" firstAttribute="top" secondItem="dMW-U3-Hmd" secondAttribute="top" constant="5" id="bim-fV-ZgP"/>
                                     <constraint firstItem="Ae5-63-Lt3" firstAttribute="leading" secondItem="dMW-U3-Hmd" secondAttribute="leading" constant="15" id="jyC-1j-X0j"/>
+                                    <constraint firstAttribute="trailing" secondItem="C0a-Ci-O79" secondAttribute="trailing" constant="85" id="rx6-n4-ya1"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -488,7 +526,7 @@
                         <outlet property="expenseNameTextField" destination="uDF-cL-3jx" id="z70-5a-MNE"/>
                         <outlet property="expenseReceiptDatePicker" destination="lPp-YD-es1" id="keS-g3-Bed"/>
                         <outlet property="expenseTotalAmountTextField" destination="TG2-4C-T0S" id="E7p-Ff-q3y"/>
-                        <outlet property="expenseUIImage" destination="LDb-Ha-1oz" id="rIc-Ed-tfb"/>
+                        <outlet property="expenseUIImage" destination="LDb-Ha-1oz" id="fXA-Nx-YGv"/>
                         <outlet property="isExpensePaidSwitch" destination="TAr-Vi-sC9" id="taY-VP-ny8"/>
                         <outlet property="isVATIncludedSwitch" destination="C0a-Ci-O79" id="qmM-ku-0ui"/>
                         <outlet property="saveExpenseButton" destination="dA5-JN-ClE" id="qlC-xQ-wmq"/>
@@ -498,16 +536,16 @@
                 <exit id="hgz-dK-6Ta" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer id="qRT-Hh-NPR">
                     <connections>
-                        <action selector="selectExpenseImageFromLibrary:" destination="ZHg-m8-A4s" id="2CV-bL-R2j"/>
+                        <action selector="selectExpenseImageFromLibrary:" destination="ZHg-m8-A4s" id="z7N-a1-qdQ"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="g5g-i3-MD1">
                     <connections>
-                        <action selector="selectExpenseImageFromLibrary:" destination="ZHg-m8-A4s" id="OtS-jL-MpM"/>
+                        <action selector="selectExpenseImageFromLibrary:" destination="ZHg-m8-A4s" id="EXo-l6-SwI"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2810" y="-173"/>
+            <point key="canvasLocation" x="2888" y="-173"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="e8x-sO-99D">
@@ -550,6 +588,7 @@
         <segue reference="byH-Mh-J58"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="expenseUnpaidImage" width="100" height="100"/>
         <image name="placeholderExpenseImage" width="410" height="421"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -557,11 +596,17 @@
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

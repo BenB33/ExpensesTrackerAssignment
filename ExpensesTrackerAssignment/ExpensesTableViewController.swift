@@ -7,20 +7,39 @@
 
 import UIKit
 
-class ExpensesTableViewController: UITableViewController
+class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
 {
 
-    // Create the array of Expenses that will be displayed in the list
+    // Create the array of Expenses
     var expensesArray:[Expenses] = []
+    
+    // Array used for searching/sorting to display in table view
+    var filteredExpensesArray:[Expenses] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // If there is data to be loaded, load it
+        // If not, the application is running for the
+        // first time so load without data
+        if let savedExpenses = loadExpenses()
+        {
+            expensesArray = savedExpenses
+            print("Loading Saved Expenses")
+        }
+        else
+        {
+            print("[INFO] First time loading the application, no data to be loaded.")
+        }
+        
+        // Copy the expenses array into the filtered array
+        filteredExpensesArray = expensesArray
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        // Display an Edit button in the navigation bar
+        self.navigationItem.leftBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
@@ -32,40 +51,95 @@ class ExpensesTableViewController: UITableViewController
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return expensesArray.count
+        return filteredExpensesArray.count
     }
 
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ExpenseCell", for: indexPath)
 
-        // Configure the cell...
-        cell.textLabel?.text = expensesArray[indexPath.row].expenseName
-        cell.detailTextLabel?.text = expensesArray[indexPath.row].expenseDescription
+    // Configure each cell with the correct expense information
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "ExpenseCell", for: indexPath) as? ExpenseTableViewCell
+        else
+        {
+            fatalError("[ERROR] Unable to generate cell...")
+        }
+        
+        // Configure the custom cell...
+        cell.expenseNameCellLabel.text = filteredExpensesArray[indexPath.row].expenseName
+        cell.expenseDateCellLabel.text = filteredExpensesArray[indexPath.row].expenseAddedDate
+        
+        if(filteredExpensesArray[indexPath.row].isExpensePaid == true)
+        {
+            cell.expenseIsPaidUIImage.image = UIImage(named: "expensePaidImage")
+        }
+        else
+        {
+            cell.expenseIsPaidUIImage.image = UIImage(named: "expenseUnpaidImage")
+        }
         
         return cell
     }
     
-
-    /*
+    
     // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
+    {
         // Return false if you do not want the specified item to be editable.
+        
+        // If the expense has been marked as paid, then the expense is no longer
+        // editable. This is to retain the paid expense for documentation
+        //if(expensesArray[indexPath.row].isExpensePaid == true)
+        //{
+            //return false
+        //}
+        //else
+        //{
+            //return true
+        //}
         return true
     }
-    */
+    
 
-    /*
+    
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
+    {
+        if editingStyle == .delete
+        {
             // Delete the row from the data source
+            print("[INFO] Deleting \(filteredExpensesArray[indexPath.row].expenseName) expense.")
+            
+            // The expense being removed
+            let expenseToDelete = filteredExpensesArray[indexPath.row]
+            
+            filteredExpensesArray.remove(at:indexPath.row)
+            //expensesArray.remove(at:indexPath.row)
+            // Search for correct contact to remove from original expensesArray
+            
+            // Using the expense name and the expense time, compare expenses in the
+            // original list to find the correct one to remove
+            //
+            // The expense added time offers a unique key identifier as the time is exact
+            for expense in indexPath.row ..< expensesArray.count
+            {
+                if(expensesArray[expense].expenseName == expenseToDelete.expenseName && expensesArray[expense].expenseAddedDate == expenseToDelete.expenseAddedDate)
+                {
+                    // Remove the correct element and break from the loop
+                    expensesArray.remove(at: expense)
+                    break
+                }
+            }
+            
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
+            
+            saveExpenses()
+        }
+        else if editingStyle == .insert
+        {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
@@ -97,10 +171,6 @@ class ExpensesTableViewController: UITableViewController
         
         switch(segue.identifier ?? "")
         {
-        case "AddExpense":
-            
-            break
-            
         case "ViewExpense":
             // Prepare to display the expense on the view page
             
@@ -122,30 +192,10 @@ class ExpensesTableViewController: UITableViewController
             
             // Grab the corrisponding expense from the expense array using
             // the previously obtained index path
-            let selectedExpense = expensesArray[indexPath.row]
+            let selectedExpense = filteredExpensesArray[indexPath.row]
             expenseViewController.expense = selectedExpense
             
             break
-            
-        case "EditExpense":
-            guard let expenseViewController = segue.destination as? ExpenseViewController
-            else
-            {
-                print("[ERROR] Unable to obtain ExpenseViewController")
-                break
-            }
-            
-            guard let indexPath = tableView.indexPathForSelectedRow
-            else
-            {
-                print("[ERROR] Unable to obtain index path")
-                break
-            }
-            
-            let selectedExpense = expensesArray[indexPath.row]
-            expenseViewController.expense = selectedExpense
-            break
-            
         default:
             break
         }
@@ -160,8 +210,22 @@ class ExpensesTableViewController: UITableViewController
             // Check if editing or adding an expense
             if let selectedIndexPath = tableView.indexPathForSelectedRow
             {
+                let expenseToDelete = filteredExpensesArray[selectedIndexPath.row]
+                
                 // If there is a selected row in the table, then edit
-                expensesArray[selectedIndexPath.row] = expense
+                filteredExpensesArray[selectedIndexPath.row] = expense
+                
+                // Using the expense name and the expense time, compare expenses in the
+                // original list to find the correct one to edit
+                //
+                // The expense added time offers a unique key identifier as the time is exact
+                for expense in selectedIndexPath.row ..< expensesArray.count
+                {
+                    if(expensesArray[expense].expenseName == expenseToDelete.expenseName && expensesArray[expense].expenseAddedDate == expenseToDelete.expenseAddedDate)
+                    {
+                        expensesArray.remove(at: expense)
+                    }
+                }
                 
                 // Update the table view
                 tableView.reloadRows(at:[selectedIndexPath], with:.none)
@@ -170,15 +234,64 @@ class ExpensesTableViewController: UITableViewController
             {
                 // There is no selected row in the table, then add
                 // Add the new expense to the array from the segue
+                filteredExpensesArray.append(expense)
                 expensesArray.append(expense)
+                
+                // Update the table at the correct index path
+                let newIndexPath = IndexPath(row:filteredExpensesArray.count-1, section:0)
+                tableView.insertRows(at:[newIndexPath], with:.automatic)
             }
             
-
-            
-            // Update the table at the correct index path
-            let newIndexPath = IndexPath(row:expensesArray.count-1, section:0)
-            tableView.insertRows(at:[newIndexPath], with:.automatic)
+            // Ensure the expenses are saved to the device after editing/added
+            saveExpenses()
         }
     }
 
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+    {
+        // Only display filtered result if the search bar isn't empty
+        if(searchText.isEmpty)
+        {
+            filteredExpensesArray = expensesArray
+        }
+        else
+        {
+            // Search for text input in search bar
+            filteredExpensesArray = expensesArray.filter({expense -> Bool in return expense.expenseName.lowercased().contains(searchText.lowercased())})
+        }
+        
+        // Update the table view
+        tableView.reloadData()
+    }
+    
+    
+    // MARK: Private Methods
+    private func saveExpenses()
+    {
+        let isSaveSuccessful = NSKeyedArchiver.archiveRootObject(expensesArray, toFile: Expenses.ArchiveURL.path)
+        
+        if(!isSaveSuccessful)
+        {
+            print("[ERROR] Save was unsuccessful...")
+        }
+        
+        
+        /* Undeprecated Method
+        guard let expensesSaveData = try? NSKeyedArchiver.archivedData(withRootObject: expensesArray, requiringSecureCoding: true)
+        else
+        {
+            print("[ERROR] Save was unsuccessful...")
+            return
+        }
+        
+        try? expensesSaveData.write(to: Expenses.ArchiveURL)
+        */
+
+    }
+    
+    private func loadExpenses() -> [Expenses]?
+    {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Expenses.ArchiveURL.path) as? [Expenses]
+    }
 }
