@@ -16,6 +16,10 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
     // Array used for searching/sorting to display in table view
     var filteredExpensesArray:[Expenses] = []
     
+    
+    @IBOutlet weak var expenseSearchBar: UISearchBar!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,6 +35,10 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
         {
             print("[INFO] First time loading the application, no data to be loaded.")
         }
+        
+        // Sort the expenses array
+        sortExpenses()
+        
         
         // Copy the expenses array into the filtered array
         filteredExpensesArray = expensesArray
@@ -201,7 +209,6 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
             print("Reached 'AddExpense' switch case")
             
             
-            
             break
 
         default:
@@ -247,9 +254,15 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
                 filteredExpensesArray.append(expense)
                 expensesArray.append(expense)
                 
+                sortExpenses()
+                
                 // Update the table at the correct index path
                 let newIndexPath = IndexPath(row:filteredExpensesArray.count-1, section:0)
                 tableView.insertRows(at:[newIndexPath], with:.automatic)
+                
+                // Clear the search bar
+                // TODO: Update the table
+                expenseSearchBar.text = ""
             }
             
             // Ensure the expenses are saved to the device after editing/added
@@ -269,6 +282,36 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
         {
             // Search for text input in search bar
             filteredExpensesArray = expensesArray.filter({expense -> Bool in return expense.expenseName.lowercased().contains(searchText.lowercased())})
+        }
+        
+        // Update the table view
+        tableView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int)
+    {
+        // Gets the title of the selected search scope
+        let selectedScopeText = searchBar.scopeButtonTitles![selectedScope]
+        
+        switch(selectedScopeText)
+        {
+        case "All":
+            // Display all of the expenses in the list
+            filteredExpensesArray = expensesArray
+            break
+            
+        case "Paid":
+            // Display all of the paid expenses in the list
+            filteredExpensesArray = expensesArray.filter({expense -> Bool in return expense.isExpensePaid == true})
+            break
+            
+        case "Unpaid":
+            // Display all of the unpaid expenses in the list
+            filteredExpensesArray = expensesArray.filter({expense -> Bool in return expense.isExpensePaid != true})
+            break
+            
+        default:
+            break
         }
         
         // Update the table view
@@ -303,5 +346,13 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
     private func loadExpenses() -> [Expenses]?
     {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Expenses.ArchiveURL.path) as? [Expenses]
+    }
+    
+    
+    private func sortExpenses()
+    {
+        // Sort the expenses array
+        expensesArray.sort(by: {$0.expenseAddedDate > $1.expenseAddedDate})
+        filteredExpensesArray.sort(by: {$0.expenseAddedDate > $1.expenseAddedDate})
     }
 }

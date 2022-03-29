@@ -127,38 +127,26 @@ class ExpenseEditViewController: UIViewController, UIImagePickerControllerDelega
         super.prepare(for: segue, sender: sender)
         print("Entered prepare function")
         
-        switch(segue.identifier ?? "")
+        // Add a new expense
+        print("Entered 'AddExpense' switch case")
+        // Check to see if the save button was pressed
+        guard let button = sender as? UIBarButtonItem, button === saveExpenseButton
+        else
         {
-        case "AddExpense":
-            // Add a new expense
-            print("Entered 'AddExpense' switch case")
-            // Check to see if the save button was pressed
-            guard let button = sender as? UIBarButtonItem, button === saveExpenseButton
-            else
-            {
-                return
-            }
-            
-            // If the save button was pressed, the follow code will run
-            let expenseImage = expenseUIImage.image
-            let expenseName = expenseNameTextField.text ?? ""
-            let expenseTotalAmount = Double(expenseTotalAmountTextField.text!) ?? 0
-            let expenseDescription = expenseDescriptionTextField.text ?? ""
-            let expenseReceiptDate = expenseReceiptDatePicker.date.formatted(.dateTime.day().month().year())
-            let isVATIncluded = isVATIncludedSwitch.isOn
-            let isExpensePaid = isExpensePaidSwitch.isOn
-            print("Adding new contact")
-            expense = Expenses(expenseName: expenseName, expenseDescription: expenseDescription, expenseReceiptDate: expenseReceiptDate, expenseTotalAmount: expenseTotalAmount, isExpenseVATIncluded: isVATIncluded, expenseImage: expenseImage, isExpensePaid: isExpensePaid)
-            break
-        case "EditExpense":
-            // Edit an existing expense
-            print("Hit 'EditExpense' switch case")
-            break
-        default:
-            print("Hit default switch case")
-            break
-            
+            return
         }
+        
+        // If the save button was pressed, the follow code will run
+        let expenseImage = expenseUIImage.image
+        let expenseName = expenseNameTextField.text ?? ""
+        let expenseTotalAmount = Double(expenseTotalAmountTextField.text!) ?? 0
+        let expenseDescription = expenseDescriptionTextField.text ?? ""
+        let expenseReceiptDate = expenseReceiptDatePicker.date.formatted(.dateTime.day().month().year())
+        let isVATIncluded = isVATIncludedSwitch.isOn
+        let isExpensePaid = isExpensePaidSwitch.isOn
+        let expenseAddedDate = Date.now.formatted(.dateTime)
+        print("Adding new contact")
+        expense = Expenses(expenseName: expenseName, expenseDescription: expenseDescription, expenseReceiptDate: expenseReceiptDate, expenseTotalAmount: expenseTotalAmount, isExpenseVATIncluded: isVATIncluded, expenseImage: expenseImage, isExpensePaid: isExpensePaid, expenseAddedDate: expenseAddedDate)
     }
 
 }
