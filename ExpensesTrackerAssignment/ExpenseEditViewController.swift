@@ -11,7 +11,6 @@ class ExpenseEditViewController: UIViewController, UIImagePickerControllerDelega
 {
     var expense:Expenses?
     
-    
     // Outlets for each element in the edit expense page
     @IBOutlet weak var expenseUIImage: UIImageView!
     @IBOutlet weak var expenseNameTextField: UITextField!
@@ -20,8 +19,6 @@ class ExpenseEditViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var expenseDescriptionTextField: UITextField!
     @IBOutlet weak var expenseReceiptDatePicker: UIDatePicker!
     @IBOutlet weak var isVATIncludedSwitch: UISwitch!
-    
-    
     @IBOutlet weak var saveExpenseButton: UIBarButtonItem!
     
     @IBAction func cancelExpenseCreation(_ sender: Any)
@@ -40,8 +37,6 @@ class ExpenseEditViewController: UIViewController, UIImagePickerControllerDelega
             }
         }
     }
-    
-    
     
     // This action is connected to both the image
     // and the 'Edit Image' label under the image
@@ -64,12 +59,14 @@ class ExpenseEditViewController: UIViewController, UIImagePickerControllerDelega
         present(expenseImagePickerController, animated: true, completion: nil)
     }
     
+    
     // If the image picker controller is cancelled, then
     // it will be dismissed and nothing will be changed
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
     {
         dismiss(animated: true, completion: nil)
     }
+    
     
     // If the user chooses an image, the chosen image will
     // replace the current expense image
@@ -96,8 +93,16 @@ class ExpenseEditViewController: UIViewController, UIImagePickerControllerDelega
     {
         super.viewDidLoad()
 
+        // Switch is disabled by default so it cannot be changed
+        // during the creation of the expense
+        isExpensePaidSwitch.isEnabled = false
+        
         if let expense = expense
         {
+            // Enable the isExpensePaid Switch so it
+            // can be marked as paid during the editing
+            isExpensePaidSwitch.isEnabled = true
+            
             expenseUIImage.image = expense.expenseImage
             expenseNameTextField.text = expense.expenseName
             expenseTotalAmountTextField.text = String(expense.expenseTotalAmount)

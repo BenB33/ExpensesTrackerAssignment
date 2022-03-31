@@ -11,6 +11,7 @@ class ExpenseViewController: UIViewController
 {
     var expense:Expenses?
     
+    
     // Outlets for each element in the view expense page
     @IBOutlet weak var expenseViewUIImage: UIImageView!
     @IBOutlet weak var expenseViewNameLabel: UILabel!
