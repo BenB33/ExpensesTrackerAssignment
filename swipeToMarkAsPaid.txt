@@ -13,3 +13,9 @@
         tableView.reloadData()
         print("Testing paid swipe")
     }
+
+
+
+
+// After marking expense as paid, set the search scope index to 0
+expenseSearchBar.selectedScopeButtonIndex = 0
