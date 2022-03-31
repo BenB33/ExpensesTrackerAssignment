@@ -370,8 +370,8 @@
                                             <constraint firstAttribute="height" constant="1" id="hYD-FV-BI5"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Expense Total Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TG2-4C-T0S">
-                                        <rect key="frame" x="15" y="50" width="384" height="34"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Expense Total Amount in GBP" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TG2-4C-T0S">
+                                        <rect key="frame" x="25" y="50" width="374" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="Srt-Sd-deX"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="34" id="iqu-SW-8va"/>
@@ -388,6 +388,12 @@
                                     <switch toolTip="Has the expense been paid?" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="TAr-Vi-sC9">
                                         <rect key="frame" x="280" y="95" width="51" height="31"/>
                                     </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDQ-fp-GHb">
+                                        <rect key="frame" x="12" y="45" width="13" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -397,19 +403,23 @@
                                     <constraint firstItem="uDF-cL-3jx" firstAttribute="top" secondItem="3TS-a8-xBi" secondAttribute="top" constant="5" id="8I0-uB-wXe"/>
                                     <constraint firstItem="Vn0-og-zdK" firstAttribute="leading" secondItem="3TS-a8-xBi" secondAttribute="leading" constant="15" id="8gF-RJ-sUw"/>
                                     <constraint firstItem="uDF-cL-3jx" firstAttribute="leading" secondItem="3TS-a8-xBi" secondAttribute="leading" constant="15" id="8rz-qk-wya"/>
+                                    <constraint firstItem="TG2-4C-T0S" firstAttribute="leading" secondItem="KDQ-fp-GHb" secondAttribute="trailing" id="D30-qM-36D"/>
                                     <constraint firstAttribute="trailing" secondItem="uDF-cL-3jx" secondAttribute="trailing" constant="15" id="PYP-ou-Dfu"/>
                                     <constraint firstAttribute="trailing" secondItem="4l6-AG-ST0" secondAttribute="trailing" id="RFP-dL-5k1"/>
                                     <constraint firstItem="TG2-4C-T0S" firstAttribute="top" secondItem="4l6-AG-ST0" secondAttribute="bottom" constant="5" id="RLU-BX-YeC"/>
                                     <constraint firstItem="4l6-AG-ST0" firstAttribute="top" secondItem="uDF-cL-3jx" secondAttribute="bottom" constant="5" id="UUx-fG-9at"/>
+                                    <constraint firstItem="O2c-hX-RiW" firstAttribute="top" secondItem="KDQ-fp-GHb" secondAttribute="bottom" id="Vh3-Gr-Svm"/>
                                     <constraint firstAttribute="bottom" secondItem="TAr-Vi-sC9" secondAttribute="bottom" constant="5" id="VzS-ny-heY"/>
                                     <constraint firstItem="4l6-AG-ST0" firstAttribute="leading" secondItem="3TS-a8-xBi" secondAttribute="leading" constant="15" id="Ylq-l2-zo3"/>
                                     <constraint firstItem="TAr-Vi-sC9" firstAttribute="leading" secondItem="Vn0-og-zdK" secondAttribute="trailing" constant="15" id="aFk-bg-Pmc"/>
                                     <constraint firstAttribute="trailing" secondItem="O2c-hX-RiW" secondAttribute="trailing" id="dzF-PR-bGo"/>
                                     <constraint firstAttribute="trailing" secondItem="TAr-Vi-sC9" secondAttribute="trailing" constant="85" id="fSL-2z-3zT"/>
-                                    <constraint firstItem="TG2-4C-T0S" firstAttribute="leading" secondItem="3TS-a8-xBi" secondAttribute="leading" constant="15" id="mjV-I3-8WL"/>
+                                    <constraint firstItem="KDQ-fp-GHb" firstAttribute="top" secondItem="4l6-AG-ST0" secondAttribute="bottom" id="m6b-GT-3wq"/>
+                                    <constraint firstItem="TG2-4C-T0S" firstAttribute="leading" secondItem="3TS-a8-xBi" secondAttribute="leading" constant="25" id="mjV-I3-8WL"/>
                                     <constraint firstItem="uDF-cL-3jx" firstAttribute="top" secondItem="3TS-a8-xBi" secondAttribute="top" constant="5" id="pVc-du-4JT"/>
                                     <constraint firstItem="O2c-hX-RiW" firstAttribute="leading" secondItem="3TS-a8-xBi" secondAttribute="leading" constant="15" id="rpA-yR-AR1"/>
                                     <constraint firstItem="TAr-Vi-sC9" firstAttribute="top" secondItem="O2c-hX-RiW" secondAttribute="bottom" constant="5" id="sxo-cW-OjG"/>
+                                    <constraint firstItem="KDQ-fp-GHb" firstAttribute="leading" secondItem="3TS-a8-xBi" secondAttribute="leading" constant="12" id="wBk-jy-oTn"/>
                                     <constraint firstAttribute="trailing" secondItem="TG2-4C-T0S" secondAttribute="trailing" constant="15" id="wUj-St-dDa"/>
                                     <constraint firstItem="Vn0-og-zdK" firstAttribute="top" secondItem="O2c-hX-RiW" secondAttribute="bottom" constant="10" id="ykm-fo-U4A"/>
                                 </constraints>

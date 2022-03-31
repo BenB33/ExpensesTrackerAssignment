@@ -94,17 +94,17 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
     {
         // Return false if you do not want the specified item to be editable.
         
-        // If the expense has been marked as paid, then the expense is no longer
-        // editable. This is to retain the paid expense for documentation
-        //if(expensesArray[indexPath.row].isExpensePaid == true)
-        //{
-            //return false
-        //}
-        //else
-        //{
-            //return true
-        //}
-        return true
+        // If the expense has been marked as paid, then the user is no longer
+        // ages to delete the expense. This is to retain the paid expense for documentation
+        if(filteredExpensesArray[indexPath.row].isExpensePaid == true)
+        {
+            return false
+        }
+        else
+        {
+            return true
+        }
+        //return true
     }
     
 
@@ -240,6 +240,9 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
                     {
                         print("Found an expense that matches")
                         expensesArray[expenseCount] = expense
+                        
+                        // Sort the expenses after one is edited
+                        sortExpenses()
                         break
                     }
                 }
@@ -254,6 +257,7 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
                 filteredExpensesArray.append(expense)
                 expensesArray.append(expense)
                 
+                // Sort the expenses after a new one is added
                 sortExpenses()
                 
                 // Update the table at the correct index path
@@ -263,6 +267,9 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
                 // Clear the search bar
                 // TODO: Update the table
                 expenseSearchBar.text = ""
+                
+                // Reload Table Data
+                tableView.reloadData()
             }
             
             // Ensure the expenses are saved to the device after editing/added
@@ -352,7 +359,7 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
     private func sortExpenses()
     {
         // Sort the expenses array
-        expensesArray.sort(by: {$0.expenseAddedDate > $1.expenseAddedDate})
-        filteredExpensesArray.sort(by: {$0.expenseAddedDate > $1.expenseAddedDate})
+        expensesArray.sort(by: {$0.expenseReceiptDate > $1.expenseReceiptDate})
+        filteredExpensesArray.sort(by: {$0.expenseReceiptDate > $1.expenseReceiptDate})
     }
 }
