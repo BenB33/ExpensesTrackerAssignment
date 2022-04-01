@@ -1,0 +1,21 @@
+// Swipe to mark as paid
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+    {
+        let editSwipeAction = UIContextualAction(style: .normal, title: "Mark as Paid") {(editSwipeAction, view, completionHandler) in self.markAsPaid(indexPath: indexPath)}
+        
+        editSwipeAction.backgroundColor = .systemGreen
+        return UISwipeActionsConfiguration(actions: [editSwipeAction])
+    }
+    
+    private func markAsPaid(indexPath:IndexPath)
+    {
+        expensesArray[indexPath.row].isExpensePaid = true
+        tableView.reloadData()
+        print("Testing paid swipe")
+    }
+
+
+
+
+// After marking expense as paid, set the search scope index to 0
+expenseSearchBar.selectedScopeButtonIndex = 0
