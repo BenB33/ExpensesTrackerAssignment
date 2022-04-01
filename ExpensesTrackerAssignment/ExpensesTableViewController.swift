@@ -108,6 +108,47 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
     }
     
 
+    // Swipe to mark as paid
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+    {
+        let editSwipeAction = UIContextualAction(style: .normal, title: "Mark as Paid") {(editSwipeAction, view, completionHandler) in self.markAsPaid(indexPath: indexPath)}
+            
+        editSwipeAction.backgroundColor = .systemGreen
+        return UISwipeActionsConfiguration(actions: [editSwipeAction])
+    }
+        
+    // The index path of cell being swiped is passed to this function to mark
+    // it as paid. Once marked, the table is reloaded to update it.
+    private func markAsPaid(indexPath:IndexPath)
+    {
+        // The expense being marked as paid
+        let expenseToBeMarkedAsPaid = filteredExpensesArray[indexPath.row]
+        
+        // Edit the expense in the filtered expense array
+        filteredExpensesArray[indexPath.row].isExpensePaid = true
+        
+        // Mark the expense as paid
+        for expense in indexPath.row ..< expensesArray.count
+        {
+            if(expensesArray[expense].expenseName == expenseToBeMarkedAsPaid.expenseName && expensesArray[expense].expenseAddedDate == expenseToBeMarkedAsPaid.expenseAddedDate)
+            {
+                // Remove the correct element and break from the loop
+                expensesArray[indexPath.row].isExpensePaid = true
+                break
+            }
+        }
+        
+        // After marking expense as paid, set the search scope index to 0
+        expenseSearchBar.selectedScopeButtonIndex = 0
+        
+        // Set the filtered expense array to the expense array as the search scope
+        // index has been changed to 0
+        filteredExpensesArray = expensesArray
+        
+        // Reload the table data to account for edits made
+        tableView.reloadData()
+    }
+    
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
@@ -142,10 +183,6 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
             
             saveExpenses()
         }
-        else if editingStyle == .insert
-        {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
     }
     
 
@@ -267,10 +304,17 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
                 // Clear the search bar
                 // TODO: Update the table
                 expenseSearchBar.text = ""
-                
-                // Reload Table Data
-                tableView.reloadData()
             }
+            
+            // After marking expense as paid, set the search scope index to 0
+            expenseSearchBar.selectedScopeButtonIndex = 0
+            
+            // Set the filtered expense array to the expense array as the search scope
+            // index has been changed to 0
+            filteredExpensesArray = expensesArray
+            
+            // Reload the table to display the up-to-date array
+            tableView.reloadData()
             
             // Ensure the expenses are saved to the device after editing/added
             saveExpenses()
@@ -297,6 +341,9 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int)
     {
+        // Clear the search bar when changing scope so the search remains accurate
+        searchBar.text = ""
+        
         // Gets the title of the selected search scope
         let selectedScopeText = searchBar.scopeButtonTitles![selectedScope]
         

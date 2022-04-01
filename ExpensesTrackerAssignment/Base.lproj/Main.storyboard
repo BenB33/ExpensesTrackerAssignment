@@ -46,9 +46,13 @@
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="expenseUnpaidImage" translatesAutoresizingMaskIntoConstraints="NO" id="zgG-2b-V0C">
                                             <rect key="frame" x="334" y="5" width="75" height="75"/>
                                             <color key="tintColor" systemColor="systemGreenColor"/>
+                                            <gestureRecognizers/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="zgG-2b-V0C" secondAttribute="height" multiplier="1:1" id="E6o-rr-yna"/>
                                             </constraints>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="Zdz-JY-khb" appends="YES" id="JJV-YA-tbV"/>
+                                            </connections>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bf5-yv-hfh">
                                             <rect key="frame" x="25" y="16" width="299" height="21"/>
@@ -94,6 +98,12 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DI7-r8-NnQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="L7W-FO-0vu" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="Zdz-JY-khb">
+                    <connections>
+                        <action selector="tapToMarkAsPaid:" destination="L7W-FO-0vu" id="wqV-lx-I15"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1066.6666666666667" y="-173.4375"/>
         </scene>
