@@ -106,7 +106,19 @@ class ExpenseEditViewController: UIViewController, UIImagePickerControllerDelega
             expenseUIImage.image = expense.expenseImage
             expenseNameTextField.text = expense.expenseName
             expenseTotalAmountTextField.text = String(expense.expenseTotalAmount)
-            isExpensePaidSwitch.setOn(expense.isExpensePaid, animated: true)
+            
+            // If the expense has already been paid, disable the is paid switch
+            // so it cannot be edited anymore
+            if(expense.isExpensePaid == true)
+            {
+                isExpensePaidSwitch.isEnabled = false
+                isExpensePaidSwitch.isOn = true
+            }
+            else
+            {
+                isExpensePaidSwitch.setOn(expense.isExpensePaid, animated: true)
+            }
+            
             expenseDescriptionTextField.text = expense.expenseDescription
             let receiptDateString = DateFormatter()
             let receiptDateDate = receiptDateString.date(from: expense.expenseReceiptDate)
@@ -116,7 +128,6 @@ class ExpenseEditViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     // MARK: - Navigation
-
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
@@ -172,5 +183,4 @@ class ExpenseEditViewController: UIViewController, UIImagePickerControllerDelega
         print("Adding new contact")
         expense = Expenses(expenseName: expenseName, expenseDescription: expenseDescription, expenseReceiptDate: expenseReceiptDate, expenseTotalAmount: expenseTotalAmount, isExpenseVATIncluded: isVATIncluded, expenseImage: expenseImage, isExpensePaid: isExpensePaid, expenseAddedDate: expenseAddedDate, expensePaidDate: expensePaidDate)
     }
-
 }
