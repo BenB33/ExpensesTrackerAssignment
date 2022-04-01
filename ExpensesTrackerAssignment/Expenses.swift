@@ -19,7 +19,7 @@ class Expenses: NSObject, NSCoding
     var expensePaidDate: String
     var expenseImage: UIImage?
     
-    init?(expenseName:String, expenseDescription:String, expenseReceiptDate:String, expenseTotalAmount:Double, isExpenseVATIncluded:Bool, expenseImage:UIImage?, isExpensePaid:Bool, expenseAddedDate: String)
+    init?(expenseName:String, expenseDescription:String, expenseReceiptDate:String, expenseTotalAmount:Double, isExpenseVATIncluded:Bool, expenseImage:UIImage?, isExpensePaid:Bool, expenseAddedDate: String, expensePaidDate: String)
     {
         if(expenseName == "" || expenseDescription == "" || expenseReceiptDate == "")
         {
@@ -35,7 +35,7 @@ class Expenses: NSObject, NSCoding
         self.isExpensePaid = isExpensePaid
         self.isExpenseVATIncluded = isExpenseVATIncluded
         self.expenseAddedDate = expenseAddedDate
-        self.expensePaidDate = "Unpaid"
+        self.expensePaidDate = expensePaidDate
         self.expenseImage = expenseImage
     }
     
@@ -112,6 +112,13 @@ class Expenses: NSObject, NSCoding
             return nil
         }
         
+        guard let expensePaidDate = coder.decodeObject(forKey: PropertyKey.expenseAddedDate) as? String
+        else
+        {
+            print("[ERROR] Unable to decode Expense paid date...")
+            return nil
+        }
+        
         // Decoding a double using .decodeDouble so decoding cannot fail
         let expenseTotalAmount = coder.decodeDouble(forKey:PropertyKey.expenseTotalAmount)
         
@@ -122,7 +129,7 @@ class Expenses: NSObject, NSCoding
         let isExpensePaid = coder.decodeBool(forKey:PropertyKey.isExpensePaid)
         
         // Call to the init function using the decoded values
-        self.init(expenseName:expenseName, expenseDescription:expenseDescription, expenseReceiptDate:expenseReceiptDate, expenseTotalAmount:expenseTotalAmount, isExpenseVATIncluded:isExpenseVATIncluded, expenseImage:expenseImage, isExpensePaid:isExpensePaid, expenseAddedDate:expenseAddedDate)
+        self.init(expenseName:expenseName, expenseDescription:expenseDescription, expenseReceiptDate:expenseReceiptDate, expenseTotalAmount:expenseTotalAmount, isExpenseVATIncluded:isExpenseVATIncluded, expenseImage:expenseImage, isExpensePaid:isExpensePaid, expenseAddedDate:expenseAddedDate, expensePaidDate:expensePaidDate)
     }
 }
 

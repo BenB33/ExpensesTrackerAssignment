@@ -140,9 +140,37 @@ class ExpenseEditViewController: UIViewController, UIImagePickerControllerDelega
         let expenseReceiptDate = expenseReceiptDatePicker.date.formatted(.dateTime.day().month().year())
         let isVATIncluded = isVATIncludedSwitch.isOn
         let isExpensePaid = isExpensePaidSwitch.isOn
-        let expenseAddedDate = Date.now.formatted(.dateTime)
+        // If the user is editing, then keep the same expense added date as passed to the view
+        // else the user is adding new, so the added date will be set to current time
+        var expenseAddedDate: String
+        if let expense = expense
+        {
+            expenseAddedDate = expense.expenseAddedDate
+        }
+        else
+        {
+            expenseAddedDate = Date.now.formatted(.dateTime)
+        }
+        
+        // If there is no expense, then the new expense paid date will be marked as "Unpaid"
+        // Else If the expense is paid but hasn't already displayed the date, the current date is set
+        // Else if the date has already been set, don't change it
+        var expensePaidDate = ""
+        if(expense?.expensePaidDate == nil)
+        {
+            expensePaidDate = "Unpaid"
+        }
+        else if(isExpensePaid && expense?.expensePaidDate == "Unpaid")
+        {
+            expensePaidDate = Date.now.formatted(.dateTime)
+        }
+        else
+        {
+            expensePaidDate = expense?.expensePaidDate ?? "[ERROR]"
+        }
+        
         print("Adding new contact")
-        expense = Expenses(expenseName: expenseName, expenseDescription: expenseDescription, expenseReceiptDate: expenseReceiptDate, expenseTotalAmount: expenseTotalAmount, isExpenseVATIncluded: isVATIncluded, expenseImage: expenseImage, isExpensePaid: isExpensePaid, expenseAddedDate: expenseAddedDate)
+        expense = Expenses(expenseName: expenseName, expenseDescription: expenseDescription, expenseReceiptDate: expenseReceiptDate, expenseTotalAmount: expenseTotalAmount, isExpenseVATIncluded: isVATIncluded, expenseImage: expenseImage, isExpensePaid: isExpensePaid, expenseAddedDate: expenseAddedDate, expensePaidDate: expensePaidDate)
     }
 
 }
