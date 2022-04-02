@@ -77,7 +77,6 @@ class ExpenseViewController: UIViewController
                 // Then no changes need to be made and the user determined amount can
                 // be displayed. Adding the inc VAT tag
                 let totalAmountWithVAT = String(expense.expenseTotalAmount) + " inc VAT"
-                
                 expenseViewTotalAmountLabel.text = totalAmountWithVAT
             }
             else
@@ -85,9 +84,7 @@ class ExpenseViewController: UIViewController
                 // Because the total amount doesn't include VAT, it will be added on by the line below
                 // and the amount with the VAT added will be displayed with the inc VAT tag.
                 let totalAmountAddingVAT = expense.expenseTotalAmount + (expense.expenseTotalAmount * 0.2)
-                
                 let totalAmountWithVAT = String(totalAmountAddingVAT) + " inc VAT"
-                
                 expenseViewTotalAmountLabel.text = totalAmountWithVAT
             }
 

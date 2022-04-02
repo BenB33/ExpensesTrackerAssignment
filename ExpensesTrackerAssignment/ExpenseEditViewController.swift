@@ -181,6 +181,8 @@ class ExpenseEditViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         print("Adding new contact")
-        expense = Expenses(expenseName: expenseName, expenseDescription: expenseDescription, expenseReceiptDate: expenseReceiptDate, expenseTotalAmount: expenseTotalAmount, isExpenseVATIncluded: isVATIncluded, expenseImage: expenseImage, isExpensePaid: isExpensePaid, expenseAddedDate: expenseAddedDate, expensePaidDate: expensePaidDate)
+        expense = Expenses(expenseName: expenseName, expenseDescription: expenseDescription, expenseReceiptDate: expenseReceiptDate,
+                           expenseTotalAmount: expenseTotalAmount, isExpenseVATIncluded: isVATIncluded, expenseImage: expenseImage,
+                           isExpensePaid: isExpensePaid, expenseAddedDate: expenseAddedDate, expensePaidDate: expensePaidDate)
     }
 }

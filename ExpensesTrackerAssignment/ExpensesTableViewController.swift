@@ -63,7 +63,7 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
     }
 
 
-    // Configure each cell with the correct expense information
+    // Configure each custom cell with the correct expense information
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "ExpenseCell", for: indexPath) as? ExpenseTableViewCell
@@ -332,7 +332,8 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
         else
         {
             // Search for text input in search bar
-            filteredExpensesArray = expensesArray.filter({expense -> Bool in return expense.expenseName.lowercased().contains(searchText.lowercased())})
+            filteredExpensesArray = expensesArray.filter({expense -> Bool in return
+                                    expense.expenseName.lowercased().contains(searchText.lowercased())})
         }
         
         // Update the table view
@@ -382,19 +383,6 @@ class ExpensesTableViewController: UITableViewController, UISearchBarDelegate
         {
             print("[ERROR] Save was unsuccessful...")
         }
-        
-        
-        /* Undeprecated Method
-        guard let expensesSaveData = try? NSKeyedArchiver.archivedData(withRootObject: expensesArray, requiringSecureCoding: true)
-        else
-        {
-            print("[ERROR] Save was unsuccessful...")
-            return
-        }
-        
-        try? expensesSaveData.write(to: Expenses.ArchiveURL)
-        */
-
     }
     
     private func loadExpenses() -> [Expenses]?
